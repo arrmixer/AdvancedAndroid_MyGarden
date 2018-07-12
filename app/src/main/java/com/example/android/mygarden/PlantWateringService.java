@@ -32,7 +32,7 @@ public class PlantWateringService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         if(intent != null){
             final String action = intent.getAction();
-            if (ACTION_WATER_PLANTS == action){
+            if (ACTION_WATER_PLANTS.equals(action)){
                 handleActionWaterPlants();
             }
         }
