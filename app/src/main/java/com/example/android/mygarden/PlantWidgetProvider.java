@@ -32,11 +32,23 @@ public class PlantWidgetProvider extends AppWidgetProvider {
 
         // Create an Intent to launch MainActivity when clicked
         Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
+                0,
+                intent,
+                0);
+
+        // Creating Intent to launch Service
+        Intent wateringIntent = new Intent(context, PlantWateringService.class);
+        PendingIntent pendingWateringIntent = PendingIntent.getService(context,
+                0,
+                wateringIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.plant_widget);
         // Widgets allow click handlers to only launch pending intents
         views.setOnClickPendingIntent(R.id.widget_plant_image, pendingIntent);
+        views.setOnClickPendingIntent(R.id.widget_water_button, pendingWateringIntent);
         // TODO (4): Create a PendingIntent for the PlantWateringService and setOnClickPendingIntent for widget_water_button
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
