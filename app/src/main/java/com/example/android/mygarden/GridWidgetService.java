@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -13,11 +14,14 @@ import com.example.android.mygarden.provider.PlantContract;
 import com.example.android.mygarden.ui.PlantDetailActivity;
 import com.example.android.mygarden.utils.PlantUtils;
 
+import static com.example.android.mygarden.GridWidgetService.TAG;
 import static com.example.android.mygarden.provider.PlantContract.BASE_CONTENT_URI;
 import static com.example.android.mygarden.provider.PlantContract.PATH_PLANTS;
 
 
 public class GridWidgetService extends RemoteViewsService {
+
+    public static final String TAG = GridWidgetService.class.getSimpleName();
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new GridRemoteViewsFactory(this.getApplicationContext());
@@ -66,7 +70,9 @@ class GridRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         if (mCursor == null){
             return 0;
         }
+        Log.i(TAG, "mCursor count is " + mCursor.getCount());
         return mCursor.getCount();
+
     }
 
     /**
